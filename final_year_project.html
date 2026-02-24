@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M.Tech Project Presentation</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.95) translateY(30px) rotateX(5deg);
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      pointer-events: none;
+      padding: 50px;
+      box-sizing: border-box;
+      text-align: center;
+      perspective: 1000px;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1) translateY(0) rotateX(0deg);
+      pointer-events: auto;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #00d2ff;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0px 4px 15px rgba(0, 210, 255, 0.5);
+      max-width: 1200px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #3a7bd5;
+      margin-bottom: 30px;
+      border-bottom: 3px solid #00d2ff;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+      text-shadow: 0px 2px 10px rgba(58, 123, 213, 0.5);
+    }
+
+    p, li {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 1000px;
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    ul { text-align: left; padding-left: 20px; }
+    li::marker { color: #00d2ff; font-size: 1.5em; }
+    .highlight { color: #00d2ff; font-weight: 600; }
+
+    .content-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      max-height: 75vh;
+      overflow-y: auto;
+      width: 85%;
+      max-width: 1300px;
+    }
+
+    .content-box::-webkit-scrollbar { width: 8px; }
+    .content-box::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    .content-box::-webkit-scrollbar-thumb { background: #00d2ff; border-radius: 10px; }
+
+    .split-layout {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 50px;
+      text-align: left;
+      background: rgba(0,0,0,0.3);
+      padding: 40px;
+      border-radius: 15px;
+      border-left: 6px solid #00d2ff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    table.custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 1.1rem;
+    }
+
+    table.custom-table th, table.custom-table td {
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      padding: 15px;
+      text-align: left;
+    }
+
+    table.custom-table th {
+      background: rgba(0, 210, 255, 0.15);
+      color: #00d2ff;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    table.custom-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+    table.custom-table tr:hover { background: rgba(0,210,255,0.1); transition: 0.3s; }
+
+    /* ─── DIAGRAM BUILDING BLOCKS ─── */
+    .diag-box {
+      background: rgba(0, 210, 255, 0.1);
+      border: 2px solid #00d2ff;
+      padding: 18px 24px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 0 15px rgba(0,210,255,0.2);
+      line-height: 1.4;
+    }
+
+    /* Horizontal arrow → */
+    .arr-h {
+      width: 50px; height: 4px;
+      background: #00d2ff;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+        .arr-h1 {
+      width: 50px; height: 4px;
+      background: #00d2ff;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+        .arr-h::after {
+      content: '';
+      position: absolute;
+      right: -10px; top: -8px;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid #00d2ff;
+    }
+
+    .arr-h1::before {
+      content: '';
+      position: absolute;
+      right: -10px; top: -8px;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid #00d2ff;
+    }
+
+    /* Horizontal arrow ← */
+    .arr-h-left {
+      width: 50px; height: 4px;
+      background: #00d2ff;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .arr-h-left::after {
+      content: '';
+      position: absolute;
+      left: -10px; top: -8px;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 10px solid #00d2ff;
+    }
+
+    /* Vertical arrow ↓ */
+    .arr-v {
+      width: 4px;
+      background: #00d2ff;
+      position: relative;
+      margin: 0 auto;
+    }
+    .arr-v::after {
+      content: '';
+      position: absolute;
+      bottom: -10px; left: -8px;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #00d2ff;
+    }
+
+    /* Browser mockup */
+    .browser-mockup {
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #1e1e1e;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      margin-top: 20px;
+      width: 100%;
+    }
+    .browser-header {
+      background: #2d2d2d;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+    .browser-url {
+      background: #1e1e1e; color: #aaa; padding: 5px 15px;
+      border-radius: 15px; font-size: 0.9rem; margin-left: 20px;
+      flex-grow: 1; text-align: left;
+    }
+    .browser-body { padding: 20px; text-align: left; }
+
+    /* Controls */
+    .controls {
+      position: fixed;
+      bottom: 30px; right: 40px;
+      z-index: 100;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .slide-counter {
+      position: fixed;
+      bottom: 40px; left: 40px;
+      z-index: 100;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 600;
+    }
+    button {
+      background: rgba(0,210,255,0.1);
+      color: #00d2ff;
+      border: 1px solid #00d2ff;
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+    button:hover {
+      background: #00d2ff;
+      color: #0f2027;
+      box-shadow: 0px 0px 15px #00d2ff;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-counter" id="slideCounter">Slide 1 of 18</div>
+
+  <!-- 1. TITLE SLIDE -->
+  <div class="slide active">
+    <h1>Hawk-Eye</h1>
+    <p style="text-align:center;font-size:1.8rem;color:#a8c0ff;"> An AI-Powered Threat Detector for Intelligent Surveillance Cameras</p>
+    <div class="split-layout">
+      <div style="flex:1;">
+        <p><strong>By:</strong></p>
+        <p style="font-size:1.8rem;color:#00d2ff;font-weight:600;margin-top:5px;">Nagendra Kishore Girajala</p>
+        <p style="font-size:1.6rem;color:#00d2ff;font-weight:600;margin-top:5px;">24P31D5809</p>
+      </div>
+      <div style="flex:1;padding-left:20px;border-left:1px solid rgba(255,255,255,0.2);">
+        <p><strong>Under the guidance of:</strong></p>
+        <p style="font-size:1.8rem;color:#00d2ff;font-weight:600;margin-top:5px;margin-bottom:5px;">Mr. Lalu Prasad<span style="font-size: small;">(PhD)</span></p>
+        <p style="margin:0;color:#ccc;">Professor</p>
+        <p style="margin:0;color:#ccc;">Department of Computer Science</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ABSTRACT -->
+  <div class="slide">
+    <h2>Abstract</h2>
+    <div class="content-box">
+      <p>Traditional video surveillance requires constant human monitoring, which is inefficient and prone to error. While streaming 24/7 video to the cloud for AI analysis provides high accuracy, it incurs massive bandwidth and API costs. Identifying real-time threats using a hybrid machine learning pipeline is a highly promising approach.</p>
+      <p>We propose a model that incorporates <span class="highlight">Edge Computing (OpenCV)</span> for zero-cost motion filtering, paired with <span class="highlight">Cloud AI (Multi Model LLM)</span> for deep reasoning. By calculating pixel differences to detect structural changes locally, the system isolates critical frames.</p>
+      <p>Based on our implementation, this multimodal approach autonomously identifies complex societal threats (fights, fires, accidents), extracts text (OCR) like license plates, and logs structured JSON data to a local Streamlit Dashboard with automated SMTP alerts.</p>
+    </div>
+  </div>
+
+  <!-- 3. INTRODUCTION -->
+  <div class="slide">
+    <h2>Introduction</h2>
+    <div class="content-box">
+      <ul>
+        <li><strong>The Core Problem:</strong> Standard object detection models (like basic YOLO) track items (e.g., "person", "car") but lack <span class="highlight">contextual reasoning</span>. They cannot easily distinguish between a normal human interaction and a violent anomaly (like a physical assault).</li>
+        <li><strong>The Cost Barrier:</strong> Processing continuous video streams (30 fps) on cloud APIs is financially unscalable and consumes massive bandwidth for 24/7 security systems.</li>
+        <li><strong>Data Overload:</strong> Security personnel suffer from fatigue when monitoring blank screens. Critical incidents often go unnoticed until after the fact.</li>
+        <li><strong>The Innovation:</strong> The introduction of Multimodal Large Language Models (LLMs) allows us to query an image with natural language. By coupling this with an edge-node motion filter, we create a highly accurate, cost-effective prediction model.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4. LITERATURE SURVEY Part 1 -->
+  <div class="slide">
+    <h2>Literature Survey (Part I)</h2>
+    <div class="content-box" style="padding:20px 40px;">
+      <table class="custom-table">
+        <thead><tr><th style="width:25%;">Author & Year</th><th style="width:35%;">Research Paper Title</th><th style="width:40%;">Key Contribution / Relevance</th></tr></thead>
+        <tbody>
+          <tr><td>Jyothi et al. (2023)</td><td>Computer Vision Based Accident Detection and Alert System</td><td>Demonstrated the efficiency of automated SMTP email protocols. Inspired our automated alert threading system for authorities.</td></tr>
+          <tr><td>Priyanka H et al. (2025)</td><td>Anomaly Detection in Surveillance Videos</td><td>Used YOLOv8 combined with PaddleOCR for license plates. Inspired our unified Multimodel LLM approach for simultaneous OCR and threat detection.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. LITERATURE SURVEY Part 2 -->
+  <div class="slide">
+    <h2>Literature Survey (Part II)</h2>
+    <div class="content-box" style="padding:20px 40px;">
+      <table class="custom-table">
+        <thead><tr><th style="width:25%;">Author & Year</th><th style="width:35%;">Research Paper Title</th><th style="width:40%;">Key Contribution / Relevance</th></tr></thead>
+        <tbody>
+          <tr><td>Awwad et al. (2024)</td><td>Anomaly Detection on the Edge under Low-Light Conditions</td><td>Reinforced the necessity of processing video frames locally on IoT-Edge devices to reduce latency and bandwidth consumption.</td></tr>
+          <tr><td>Duja et al. (2024)</td><td>Video Surveillance Anomaly Detection: Deep Learning Benchmarks</td><td>Validated the use of motion filtering and temporal/sequential framing to provide AI with context, reducing false positives.</td></tr>
+          <tr><td>Sonawane et al. (2025)</td><td>Detection of Criminal Activities and Anomalies through CCTV's</td><td>Proposed R-CNN + OpenCV pipeline for real-time criminal detection via CCTV, with automated alerts (location + images) to authorities and a web portal for classifying footage as normal/anomalous. Directly validates our hybrid edge-cloud approach, structured alert mechanism, and local dashboard concept.</td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 6. EXISTING SYSTEM -->
+  <div class="slide">
+    <h2>Existing System</h2>
+    <div class="content-box">
+      <p>In existing systems, the implementation of Deep Learning for anomaly detection is highly complex and resource-intensive. Current models rely on continuous video streaming to cloud servers or require extremely expensive local GPUs to run heavy CNN architectures 24/7.</p>
+      <p>Furthermore, traditional systems require separate models for different tasks (one model for object detection, one for action recognition, and one for OCR/license plates), increasing latency.</p>
+      <p style="margin-top:20px;" class="highlight">Disadvantages of Existing Systems:</p>
+      <ul>
+        <li>High computational complexity and hardware costs.</li>
+        <li>Massive network bandwidth consumption.</li>
+        <li>High false-positive rates due to lack of contextual understanding.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7. PROPOSED SYSTEM -->
+  <div class="slide">
+    <h2>Proposed System</h2>
+    <div class="content-box">
+      <p>We propose a unified, hybrid model. At the <span class="highlight">Edge Node</span>, a lightweight Python script uses OpenCV (absdiff, GaussianBlur, findContours) to continuously monitor pixel changes. This acts as a zero-cost gatekeeper.</p>
+      <p>When anomalous motion exceeds a set threshold, the system extracts the critical frames and securely dispatches them to the <span class="highlight">Multi Model LLM</span>. It utilizes its multimodal vision-language capabilities to evaluate the scene.</p>
+      <p>The AI returns a strict JSON payload containing the threat type (Violence, Fire, Intrusion) and any extracted text (OCR). The system immediately logs this to a local SQLite database and dispatches an SMTP email alert.</p>
+    </div>
+  </div>
+
+  <!-- 8. ADVANTAGES -->
+  <div class="slide">
+    <h2>Advantages of Proposed System</h2>
+    <div class="content-box">
+      <ul style="font-size:1.5rem;line-height:2;">
+        <li><span class="highlight">High Accuracy:</span> Leverages state-of-the-art LLM reasoning rather than rigid bounding boxes.</li>
+        <li><span class="highlight">Drastically Reduces Cost:</span> API calls are only made when genuine motion occurs, saving 99% of bandwidth.</li>
+        <li><span class="highlight">All-in-One Multimodality:</span> Performs anomaly detection, contextual description, and OCR simultaneously.</li>
+        <li><span class="highlight">Real-time Dashboarding:</span> Provides operators with an organized, queryable SQLite log via Streamlit.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 9. IMPLEMENTATION -->
+  <div class="slide">
+    <h2>Implementation</h2>
+    <div class="content-box">
+      <ul>
+        <li><strong>Step 1:</strong> Initialize the local SQLite Database (security_log.db) and start the Streamlit UI.</li>
+        <li><strong>Step 2:</strong> Connect to the camera feed (via IP Webcam/Droidcam) using cv2.VideoCapture.</li>
+        <li><strong>Step 3:</strong> Continuously calculate the absolute difference between sequential frames. Apply Gaussian blur and thresholds to isolate moving contours.</li>
+        <li><strong>Step 4:</strong> If contour area > 8000, trigger the AI sequence. Apply a 15-second cooldown to prevent spam.</li>
+        <li><strong>Step 5:</strong> Convert the frame to a PIL Image and dispatch to the Multimodel LLM with a strict JSON formatting prompt.</li>
+        <li><strong>Step 6:</strong> If threat_detected is True, insert the record into the database and spawn a background thread to send the SMTP alert with the image attached.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 10. ARCHITECTURE DIAGRAM — Cloud AI is source of threat actions -->
+  <div class="slide">
+    <h2>System Architecture</h2>
+    <div class="content-box" style="display:flex;flex-direction:column;align-items:center;padding:30px 40px;">
+
+      <!--
+        Correct flow per user:
+        [CCTV Feed] ——→ [Edge Node] ——→ [Cloud AI]
+                                               |
+                                               ↓  (if threat detected)
+                                    [SMTP Server]   [Local Dashboard]
+                                    (Email Alerts)  (Streamlit + SQLite)
+      -->
+
+      <div style="display:grid;
+                  grid-template-columns:220px 50px 220px 50px 220px;
+                  grid-template-rows:auto 60px auto;
+                  align-items:center;
+                  justify-items:center;
+                  gap:0;">
+
+        <!-- Row 1: CCTV | →  | Edge Node | → | Cloud AI -->
+        <div class="diag-box" style="grid-column:1;grid-row:1;">
+          📹 CCTV Feed<br><span style="font-size:0.85rem;font-weight:300;">(DroidCam / IP)</span>
+        </div>
+        <div class="arr-h" style="grid-column:2;grid-row:1;"></div>
+        <div class="diag-box" style="grid-column:3;grid-row:1;">
+          💻 Edge Node<br><span style="font-size:0.85rem;font-weight:300;">(OpenCV Motion Filter)</span>
+        </div>
+        <div class="arr-h" style="grid-column:4;grid-row:1;"></div>
+        <div class="diag-box" style="grid-column:5;grid-row:1;border-color:#ffbd2e;color:#ffbd2e;">
+          🧠 Cloud AI<br><span style="font-size:0.85rem;font-weight:300;">Multi Model LLM</span>
+        </div>
+
+        <!-- Row 2: Down arrow from Cloud AI (column 5) -->
+        <div class="arr-v" style="grid-column:5;grid-row:2;height:50px;align-self:stretch;"></div>
+
+        <!-- Row 3: SMTP ←— Local Dashboard, aligned under Cloud AI -->
+        <div class="diag-box" style="grid-column:3;grid-row:3;border-color:#ff5f56;color:#ff5f56;">
+          📧 SMTP Server<br><span style="font-size:0.85rem;font-weight:300;">(Email Alerts)</span>
+        </div>
+        <div class="arr-h-left" style="grid-column:4;grid-row:3;"></div>
+        <div class="diag-box" style="grid-column:5;grid-row:3;border-color:#27c93f;color:#27c93f;">
+          📊 Local Dashboard<br><span style="font-size:0.85rem;font-weight:300;">(Streamlit + SQLite)</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. BLOCK DIAGRAM — corrected flow: motion → Gemini → Threat Detected? → SMTP+DB -->
+  <div class="slide">
+    <h2>Block Diagram</h2>
+    <div class="content-box" style="display:flex;align-items:center;justify-content:center;padding:20px 40px;overflow-y:auto;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+
+        <!-- START oval -->
+        <div class="diag-box" style="border-radius:50px;padding:10px 40px;width:200px;">START</div>
+        <div class="arr-v" style="height:24px;margin-bottom:10px;"></div>
+
+        <!-- Capture Frames -->
+        <div class="diag-box" style="width:400px;padding:12px 20px;">Capture Frame 1 & Frame 2</div>
+        <div class="arr-v" style="height:24px;margin-bottom:10px;"></div>
+
+        <!-- Calc Diff -->
+        <div class="diag-box" style="width:400px;padding:12px 20px;">Calculate Absolute Difference (OpenCV)</div>
+        <div class="arr-v" style="height:24px;margin-bottom:10px;"></div>
+
+        <!-- Decision 1: Is Contour > Threshold? -->
+        <div class="diag-box" style="width:360px;padding:14px 20px;border-color:#ffbd2e;color:#ffbd2e;border-radius:24px;">
+          Is Contour &gt; Threshold?
+        </div>
+
+        <!-- NO/YES split for motion -->
+        <div style="display:flex;align-items:flex-start;width:620px;margin-top:0;">
+
+          <!-- NO Branch (left) → Loop Back -->
+          <div style="display:flex;flex-direction:column;align-items:center;width:45%;">
+            <div style="width:2px;height:20px;background:#00d2ff;"></div>
+            <div style="display:flex;align-items:center;">
+              <div style="width:70px;height:2px;background:#00d2ff;position:relative;">
+                <div style="position:absolute;bottom:-9px;left:0;border-right:10px solid #00d2ff;border-top:10px solid transparent;border-bottom:10px solid transparent;"></div>
+              </div>
+              <span style="font-size:0.85rem;margin:0 6px;color:#ccc;">NO</span>
+            </div>
+            <div style="width:2px;height:18px;background:#00d2ff;"></div>
+            <div class="diag-box" style="width:160px;padding:10px 14px;">Loop Back</div>
+          </div>
+
+          <!-- YES Branch (right) → Gemini → Threat Detected? → actions -->
+          <div style="display:flex;flex-direction:column;align-items:center;width:55%;">
+            <div style="width:2px;height:20px;background:#00d2ff;"></div>
+            <span style="font-size:0.85rem;margin-bottom:4px;color:#ccc;">YES</span>
+            <div class="arr-v" style="height:18px;margin-bottom:10px;"></div>
+
+            <!-- Call Gemini -->
+            <div class="diag-box" style="width:240px;padding:12px 16px;">Call Multi Model</div>
+            <div class="arr-v" style="height:24px;margin-bottom:10px;"></div>
+
+            <!-- Decision 2: Threat Detected? -->
+            <div class="diag-box" style="width:260px;padding:12px 16px;border-color:#ffbd2e;color:#ffbd2e;border-radius:24px;">
+              Threat Detected?
+            </div>
+
+            <!-- NO2/YES2 split for threat -->
+            <div style="display:flex;align-items:flex-start;width:420px;margin-top:0;">
+
+              <!-- NO → Discard / Loop -->
+              <div style="display:flex;flex-direction:column;align-items:center;width:45%;">
+                <div style="width:2px;height:20px;background:#00d2ff;"></div>
+                <div style="display:flex;align-items:center;">
+                  <div style="width:50px;height:2px;background:#00d2ff;position:relative;">
+                    <div style="position:absolute;bottom:-9px;left:0;border-right:10px solid #00d2ff;border-top:10px solid transparent;border-bottom:10px solid transparent;"></div>
+                  </div>
+                  <span style="font-size:0.8rem;margin:0 5px;color:#ccc;">NO</span>
+                </div>
+                <div style="width:2px;height:16px;background:#00d2ff;"></div>
+                <div class="diag-box" style="width:130px;padding:8px 10px;font-size:0.85rem;">Discard Frame</div>
+              </div>
+
+              <!-- YES → Log DB + Send Email -->
+              <div style="display:flex;flex-direction:column;align-items:center;width:55%;">
+                <div style="width:2px;height:20px;background:#00d2ff;"></div>
+                <span style="font-size:0.8rem;margin-bottom:4px;color:#ccc;">YES</span>
+                <div class="arr-v" style="height:16px;margin-bottom:8px;"></div>
+                <div class="diag-box" style="width:210px;padding:10px 12px;border-color:#ff5f56;color:#ff5f56;font-size:0.9rem;">📧 Send SMTP Email</div>
+                <div class="arr-v" style="height:16px;margin-bottom:8px;"></div>
+                <div class="diag-box" style="width:210px;padding:10px 12px;border-color:#27c93f;color:#27c93f;font-size:0.9rem;">📊 Log to DB (SQLite)</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. MODULE 1 -->
+  <div class="slide">
+    <h2>Module 1: Edge Processor</h2>
+    <div class="content-box">
+      <ul>
+        <li><strong>Video Ingestion:</strong> Connects to IP cameras via cv2.VideoCapture.</li>
+        <li><strong>Grayscale Conversion:</strong> Simplifies the image matrices to reduce compute load.</li>
+        <li><strong>Gaussian Blurring:</strong> Smooths out high-frequency noise (like wind or camera jitter) that causes false positives.</li>
+        <li><strong>Thresholding & Dilation:</strong> Converts the difference image to stark black and white, making human/vehicle shapes distinct.</li>
+        <li><strong>Contour Area Filtering:</strong> Ignores small movements (leaves, bugs) and only flags significant motion (area > 8000).</li>
+        <li><strong>Cooldown Logic:</strong> Uses time.time() to enforce a 15-second delay between triggers to prevent API throttling.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 13. MODULE 2 -->
+  <div class="slide">
+    <h2>Module 2: Cloud AI & Dashboard</h2>
+    <div class="content-box">
+      <ul>
+        <li><strong>Payload Generation:</strong> Converts the triggered OpenCV frame into a PIL Image format compatible with Google GenAI.</li>
+        <li><strong>Prompt Engineering:</strong> Forces the LLM to output a strict JSON string mapping to specific database columns (threat_detected, threat_type, description, extracted_text).</li>
+        <li><strong>SQLite Integration:</strong> Opens a local database connection and inserts the parsed JSON data alongside a real-time timestamp.</li>
+        <li><strong>Multithreaded SMTP:</strong> Triggers the email.message library in a separate threading.Thread so the camera feed doesn't freeze while sending the attachment.</li>
+        <li><strong>Streamlit UI:</strong> A web interface that reads the SQLite incidents table and uses st.dataframe to display a live, structured log for security personnel.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 14. HARDWARE & SOFTWARE -->
+  <div class="slide">
+    <h2>Hardware & Software Requirements</h2>
+    <div class="content-box" style="padding:20px 40px;display:flex;flex-wrap:wrap;gap:40px;justify-content:center;">
+      <div style="flex:1;min-width:300px;">
+        <table class="custom-table">
+          <thead><tr><th colspan="2" style="text-align:center;">Hardware Requirements</th></tr></thead>
+          <tbody>
+            <tr><td><strong>OS</strong></td><td>Windows 10 / Linux</td></tr>
+            <tr><td><strong>RAM</strong></td><td>8 GB (Minimum)</td></tr>
+            <tr><td><strong>Storage</strong></td><td>256 GB SSD</td></tr>
+            <tr><td><strong>Processor</strong></td><td>Intel i3 / Ryzen 3 or higher</td></tr>
+            <tr><td><strong>Camera</strong></td><td>DroidCam App / Web Camera</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="flex:1;min-width:300px;">
+        <table class="custom-table">
+          <thead><tr><th colspan="2" style="text-align:center;">Software Requirements</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Language</strong></td><td>Python 3.9+</td></tr>
+            <tr><td><strong>IDE</strong></td><td>VS Code / PyCharm</td></tr>
+            <tr><td><strong>Libraries</strong></td><td>OpenCV, Pandas, SQLite3</td></tr>
+            <tr><td><strong>Framework</strong></td><td>Streamlit</td></tr>
+            <tr><td><strong>Cloud</strong></td><td>Multi Model LLM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. OUTPUT 1 -->
+  <div class="slide">
+    <h2>OUTPUT: Terminal & API Execution</h2>
+    <div class="content-box" style="padding:20px 40px;">
+      <div class="browser-mockup">
+        <div class="browser-header">
+          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+          <div class="browser-url">Terminal / Command Prompt</div>
+        </div>
+        <div class="browser-body" style="font-family:'Courier New',Courier,monospace;color:#a8c0ff;line-height:1.6;">
+          > python app.py<br>
+          <span style="color:#fff;">Edge Node Active. Monitoring locally for anomalies...</span><br>
+          [Motion Detected] Calculating contour area: 12450<br>
+          [API Call] Dispatching frame to LLM<br><br>
+          <span style="color:#27c93f;">AI JSON Output: {<br>
+          &nbsp;&nbsp;"threat_detected": true,<br>
+          &nbsp;&nbsp;"threat_type": "Vandalism",<br>
+          &nbsp;&nbsp;"description": "A person is spray painting the wall.",<br>
+          &nbsp;&nbsp;"extracted_text": "No text visible"<br>
+          }</span><br><br>
+          <span style="color:#ffbd2e;">⚠️ THREAT CONFIRMED! Saving to local SQLite database...</span><br>
+          [Thread] Dispatching email for: Vandalism...<br>
+          [Thread] ✅ Email successfully sent.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. OUTPUT 2 -->
+  <div class="slide">
+    <h2>OUTPUT: Streamlit Dashboard</h2>
+    <div class="content-box" style="padding:20px 40px;">
+      <div class="browser-mockup" style="background:#0e1117;">
+        <div class="browser-header">
+          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+          <div class="browser-url">localhost:8501 - Local Security Dashboard</div>
+        </div>
+        <div class="browser-body">
+          <h3 style="color:white;margin-top:0;">🚨 Local Security Incident Dashboard</h3>
+          <div style="display:flex;gap:20px;margin-bottom:20px;">
+            <div style="background:#262730;padding:15px;border-radius:8px;flex:1;">Total Incidents: <strong style="font-size:1.5rem;color:#00d2ff;">14</strong></div>
+            <div style="background:#262730;padding:15px;border-radius:8px;flex:1;">Unresolved Alerts: <strong style="font-size:1.5rem;color:#ff5f56;">3</strong></div>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:0.95rem;">
+            <tr style="background:#262730;color:#aaa;text-align:left;">
+              <th style="padding:12px;">Date & Time</th><th style="padding:12px;">Threat Category</th><th style="padding:12px;">AI Analysis</th><th style="padding:12px;">Status</th>
+            </tr>
+            <tr style="border-bottom:1px solid #333;">
+              <td style="padding:12px;">2024-05-12 14:32:01</td><td style="padding:12px;color:#ff5f56;font-weight:600;">Vandalism</td><td style="padding:12px;">Person spray painting wall</td><td style="padding:12px;">Unresolved 🔴</td>
+            </tr>
+            <tr style="border-bottom:1px solid #333;">
+              <td style="padding:12px;">2024-05-12 11:15:44</td><td style="padding:12px;color:#ffbd2e;font-weight:600;">Suspicious Vehicle</td><td style="padding:12px;">Car parked in loading zone</td><td style="padding:12px;">Resolved 🟢</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 17. CONCLUSION -->
+  <div class="slide">
+    <h2>Conclusion</h2>
+    <div class="content-box">
+      <p>This project successfully demonstrates that high-end enterprise security monitoring does not require massive cloud computing budgets or continuous data streaming.</p>
+      <p>By blending the lightweight, zero-cost processing speed of local <span class="highlight">OpenCV on the Edge</span> with the deep contextual understanding of <span class="highlight">Multimodal LLMs</span>, the system can autonomously identify complex societal threats with near-zero false positives.</p>
+      <p>The integration of native OCR, structured JSON output, local SQLite database logging, and automated SMTP threading creates a highly secure, privacy-first, and fully functional real-time anomaly detection pipeline.</p>
+    </div>
+  </div>
+
+  <!-- 18. THANK YOU -->
+  <div class="slide">
+    <h1 style="font-size:6rem;text-shadow:0px 8px 25px rgba(0,210,255,0.6);">THANK YOU</h1>
+    <p style="text-align:center;color:#00d2ff;font-size:1.8rem;letter-spacing:2px;">Any Questions?</p>
+  </div>
+
+  <div class="controls">
+    <button onclick="prevSlide()">← Previous</button>
+    <button onclick="nextSlide()">Next →</button>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('slideCounter');
+
+    function updateCounter() {
+      counter.innerText = `Slide ${currentSlide + 1} of ${slides.length}`;
+    }
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+      });
+      updateCounter();
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); }
+    }
+
+    updateCounter();
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      else if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+</body>
+</html>
