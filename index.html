@@ -3,21 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>M.Tech Project Presentation</title>
+  <title>HAWK-EYE V3 — Project Presentation</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
 
+    :root {
+      --accent:       #E3562B;
+      --accent-glow:  rgba(227,86,43,0.30);
+      --accent-dim:   rgba(227,86,43,0.10);
+      --accent-border:rgba(227,86,43,0.40);
+      --bg:           #FAF4DF;
+      --text:         #1D3639;
+      --muted:        #7F7F7F;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      margin: 0;
-      padding: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #ffffff;
+      background: #FAF4DF;
+      color: #1D3639;
       overflow: hidden;
       height: 100vh;
       width: 100vw;
     }
 
+    /* ── SLIDES ── */
     .slide {
       position: absolute;
       top: 0; left: 0;
@@ -28,512 +39,408 @@
       align-items: center;
       opacity: 0;
       transform: scale(0.95) translateY(30px) rotateX(5deg);
-      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: opacity 0.8s cubic-bezier(0.25,1,0.5,1),
+                  transform 0.8s cubic-bezier(0.25,1,0.5,1);
       pointer-events: none;
       padding: 50px;
-      box-sizing: border-box;
       text-align: center;
       perspective: 1000px;
     }
-
     .slide.active {
       opacity: 1;
       transform: scale(1) translateY(0) rotateX(0deg);
       pointer-events: auto;
     }
 
+    /* ── TYPOGRAPHY ── */
     h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      color: #00d2ff;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-shadow: 0px 4px 15px rgba(0, 210, 255, 0.5);
+      font-size: 3.5rem; font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase; letter-spacing: 2px;
+      text-shadow: 0 4px 20px var(--accent-glow);
       max-width: 1200px;
-      text-align: center;
     }
-
     h2 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      color: #3a7bd5;
-      margin-bottom: 30px;
-      border-bottom: 3px solid #00d2ff;
+      font-size: 2.4rem; font-weight: 600;
+      color: var(--accent);
+      border-bottom: 3px solid var(--accent);
       padding-bottom: 10px;
       text-transform: uppercase;
-      text-shadow: 0px 2px 10px rgba(58, 123, 213, 0.5);
+      margin-bottom: 28px;
     }
-
     p, li {
-      font-size: 1.2rem;
-      line-height: 1.7;
-      font-weight: 300;
-      max-width: 1000px;
-      text-align: left;
-      margin-bottom: 15px;
+      font-size: 1.15rem; line-height: 1.75;
+      font-weight: 300; max-width: 1000px;
+      text-align: left; margin-bottom: 14px;
+      color: #1D3639;
     }
-
     ul { text-align: left; padding-left: 20px; }
-    li::marker { color: #00d2ff; font-size: 1.5em; }
-    .highlight { color: #00d2ff; font-weight: 600; }
+    li::marker { color: var(--accent); font-size: 1.4em; }
+    .hl { color: var(--accent); font-weight: 600; }
 
-    .content-box {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    /* ── CONTENT BOX ── */
+    .box {
+      background: rgba(255,255,255,0.70);
+      border: 1px solid rgba(29,54,57,0.14);
       border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      max-height: 75vh;
+      padding: 36px 44px;
+      box-shadow: 0 8px 32px rgba(29,54,57,0.10);
+      max-height: 74vh;
       overflow-y: auto;
-      width: 85%;
+      width: 88%;
       max-width: 1300px;
     }
+    .box::-webkit-scrollbar { width: 7px; }
+    .box::-webkit-scrollbar-track { background: rgba(29,54,57,0.06); border-radius: 10px; }
+    .box::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-    .content-box::-webkit-scrollbar { width: 8px; }
-    .content-box::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
-    .content-box::-webkit-scrollbar-thumb { background: #00d2ff; border-radius: 10px; }
-
-    .split-layout {
-      display: flex;
-      justify-content: space-between;
+    /* ── SPLIT LAYOUT (title) ── */
+    .split {
+      display: flex; justify-content: space-between;
       align-items: center;
-      width: 100%;
-      max-width: 1000px;
-      margin-top: 50px;
-      text-align: left;
-      background: rgba(0,0,0,0.3);
-      padding: 40px;
+      width: 100%; max-width: 900px;
+      margin-top: 44px;
+      background: rgba(255,255,255,0.70);
+      padding: 36px 40px;
       border-radius: 15px;
-      border-left: 6px solid #00d2ff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
-
-    table.custom-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 1.1rem;
-    }
-
-    table.custom-table th, table.custom-table td {
-      border: 1px solid rgba(0, 210, 255, 0.3);
-      padding: 15px;
+      border-left: 6px solid var(--accent);
+      box-shadow: 0 10px 30px rgba(29,54,57,0.10);
       text-align: left;
     }
 
-    table.custom-table th {
-      background: rgba(0, 210, 255, 0.15);
-      color: #00d2ff;
-      font-weight: 600;
+    /* ── TABLE ── */
+    table.t {
+      width: 100%; border-collapse: collapse;
+      font-size: 1.05rem; margin-top: 8px;
+    }
+    table.t th, table.t td {
+      border: 1px solid var(--accent-border);
+      padding: 13px 16px; text-align: left;
+    }
+    table.t th {
+      background: var(--accent-dim);
+      color: var(--accent); font-weight: 600;
       text-transform: uppercase;
     }
+    table.t tr:nth-child(even) { background: rgba(29,54,57,0.03); }
+    table.t tr:hover { background: rgba(227,86,43,0.06); transition: 0.3s; }
 
-    table.custom-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
-    table.custom-table tr:hover { background: rgba(0,210,255,0.1); transition: 0.3s; }
-
-    /* ─── DIAGRAM BUILDING BLOCKS ─── */
-    .diag-box {
-      background: rgba(0, 210, 255, 0.1);
-      border: 2px solid #00d2ff;
-      padding: 18px 24px;
+    /* ── DIAGRAM BOXES ── */
+    .dbox {
+      background: var(--accent-dim);
+      border: 2px solid var(--accent);
+      padding: 14px 20px;
       border-radius: 10px;
       text-align: center;
-      font-weight: 600;
-      font-size: 1rem;
-      box-shadow: 0 0 15px rgba(0,210,255,0.2);
+      font-weight: 600; font-size: 0.95rem;
+      color: #1D3639;
+      box-shadow: 0 0 10px var(--accent-glow);
       line-height: 1.4;
     }
+    .dbox.green { border-color:#1a8a2d; color:#1a8a2d; background:rgba(39,201,63,0.08); box-shadow:0 0 10px rgba(39,201,63,0.20); }
+    .dbox.red   { border-color:#c0392b; color:#c0392b; background:rgba(255,95,86,0.08); box-shadow:0 0 10px rgba(255,95,86,0.20); }
+    .dbox.gold  { border-color:#c87a00; color:#c87a00; background:rgba(255,189,46,0.10); box-shadow:0 0 10px rgba(255,189,46,0.20); }
 
-    /* Horizontal arrow → */
-    .arr-h {
-      width: 50px; height: 4px;
-      background: #00d2ff;
-      position: relative;
-      flex-shrink: 0;
-    }
+    /* Arrows */
+    .arr-h { width:50px; height:4px; background:var(--accent); position:relative; flex-shrink:0; }
+    .arr-h::after { content:''; position:absolute; right:-10px; top:-8px;
+      border-top:10px solid transparent; border-bottom:10px solid transparent; border-left:10px solid var(--accent); }
+    .arr-h-left { width:50px; height:4px; background:var(--accent); position:relative; flex-shrink:0; }
+    .arr-h-left::after { content:''; position:absolute; left:-10px; top:-8px;
+      border-top:10px solid transparent; border-bottom:10px solid transparent; border-right:10px solid var(--accent); }
+    .arr-v { width:4px; background:var(--accent); position:relative; margin:0 auto; }
+    .arr-v::after { content:''; position:absolute; bottom:-10px; left:-8px;
+      border-left:10px solid transparent; border-right:10px solid transparent; border-top:10px solid var(--accent); }
 
-        .arr-h1 {
-      width: 50px; height: 4px;
-      background: #00d2ff;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-        .arr-h::after {
-      content: '';
-      position: absolute;
-      right: -10px; top: -8px;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-left: 10px solid #00d2ff;
-    }
-
-    .arr-h1::before {
-      content: '';
-      position: absolute;
-      right: -10px; top: -8px;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-left: 10px solid #00d2ff;
-    }
-
-    /* Horizontal arrow ← */
-    .arr-h-left {
-      width: 50px; height: 4px;
-      background: #00d2ff;
-      position: relative;
-      flex-shrink: 0;
-    }
-    .arr-h-left::after {
-      content: '';
-      position: absolute;
-      left: -10px; top: -8px;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-right: 10px solid #00d2ff;
-    }
-
-    /* Vertical arrow ↓ */
-    .arr-v {
-      width: 4px;
-      background: #00d2ff;
-      position: relative;
-      margin: 0 auto;
-    }
-    .arr-v::after {
-      content: '';
-      position: absolute;
-      bottom: -10px; left: -8px;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-top: 10px solid #00d2ff;
-    }
-
-    /* Browser mockup */
-    .browser-mockup {
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 10px;
-      overflow: hidden;
-      background: #1e1e1e;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      margin-top: 20px;
+    /* ── BROWSER MOCKUP ── */
+    .browser {
+      border: 1px solid rgba(29,54,57,0.18);
+      border-radius: 10px; overflow: hidden;
+      background: #1a1a1a;
+      box-shadow: 0 10px 30px rgba(29,54,57,0.18);
       width: 100%;
     }
-    .browser-header {
-      background: #2d2d2d;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .bhead {
+      background: #2a2a2a; padding: 9px 12px;
+      display: flex; align-items: center; gap: 7px;
     }
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
-    .dot.red { background: #ff5f56; }
-    .dot.yellow { background: #ffbd2e; }
-    .dot.green { background: #27c93f; }
-    .browser-url {
-      background: #1e1e1e; color: #aaa; padding: 5px 15px;
-      border-radius: 15px; font-size: 0.9rem; margin-left: 20px;
-      flex-grow: 1; text-align: left;
+    .bdot { width:11px; height:11px; border-radius:50%; }
+    .burl {
+      background: #1a1a1a; color: #aaa;
+      padding: 4px 14px; border-radius: 14px;
+      font-size: 0.88rem; margin-left: 16px; flex-grow: 1; text-align: left;
     }
-    .browser-body { padding: 20px; text-align: left; }
+    .bbody { padding: 18px 22px; text-align: left; }
 
-    /* Controls */
+    /* Terminal specific */
+    .term { font-family: 'Courier New', monospace; color: #a8c0ff; line-height: 1.7; font-size: 0.92rem; }
+    .t-white { color: #fff; }
+    .t-green { color: #27c93f; }
+    .t-orange { color: #E3562B; }
+    .t-gold   { color: #ffbd2e; }
+    .t-dim    { color: #666; }
+
+    /* Gmail mock */
+    .gmail-header {
+      background: #f1f3f4; padding: 12px 18px;
+      border-bottom: 1px solid #ddd; color: #333;
+    }
+    .gmail-from  { font-weight: 700; font-size: 1rem; color: #1a1a1a; }
+    .gmail-subj  { color: #E3562B; font-weight: 700; font-size: 1.1rem; margin-top: 4px; }
+    .gmail-when  { color: #888; font-size: 0.82rem; margin-top: 3px; }
+    .gmail-body  { padding: 14px 18px; color: #333; font-family: 'Poppins', sans-serif; font-size: 0.88rem; }
+    .gmail-banner {
+      background: #E3562B; color: #fff;
+      padding: 8px 14px; border-radius: 6px;
+      font-weight: 700; font-size: 0.95rem;
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .gmail-row   { display:flex; gap:8px; margin-bottom:5px; }
+    .gmail-lbl   { font-weight:700; color:#1D3639; min-width:90px; font-size:0.82rem; }
+    .gmail-val   { color:#333; font-size:0.82rem; }
+    .gmail-attach {
+      margin-top:10px; background:#f5f5f5; border:1px dashed #ccc;
+      border-radius:5px; padding:8px 14px;
+      display:flex; align-items:center; gap:8px; color:#666; font-size:0.82rem;
+    }
+
+    /* Dashboard mock */
+    .dash-bg { background: #0e1117; }
+    .dash-metric {
+      background: #262730; padding: 14px 18px;
+      border-radius: 8px; flex: 1; text-align: center;
+    }
+    .dash-val { font-size: 1.6rem; font-weight: 700; color: #fff; }
+    .dash-lbl { font-size: 0.75rem; color: #888; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .dash-row { display:flex; gap:16px; margin-bottom:16px; }
+    .dash-table { width:100%; border-collapse:collapse; font-size:0.88rem; }
+    .dash-table th { background:#1e2130; color:#aaa; padding:10px 12px; text-align:left; font-weight:600; font-size:0.78rem; text-transform:uppercase; }
+    .dash-table td { padding:9px 12px; border-bottom:1px solid #2a2a2a; color:#ddd; }
+    .dash-table tr:hover td { background:rgba(227,86,43,0.08); }
+    .dt-pill { font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:3px; }
+    .dt-crit { background:rgba(227,86,43,0.2); color:#E3562B; }
+    .dt-high { background:rgba(255,189,46,0.2); color:#ffbd2e; }
+    .dt-med  { background:rgba(100,200,255,0.2); color:#64c8ff; }
+    .dt-res  { background:rgba(39,201,63,0.2);  color:#27c93f; }
+    .dt-unr  { background:rgba(227,86,43,0.15); color:#E3562B; }
+    .dt-fp   { background:rgba(150,150,150,0.2); color:#999; }
+
+    /* ── CONTROLS ── */
     .controls {
-      position: fixed;
-      bottom: 30px; right: 40px;
-      z-index: 100;
-      display: flex;
-      gap: 15px;
-      align-items: center;
+      position: fixed; bottom: 28px; right: 38px;
+      z-index: 100; display: flex; gap: 14px;
     }
     .slide-counter {
-      position: fixed;
-      bottom: 40px; left: 40px;
-      z-index: 100;
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.5);
-      font-weight: 600;
+      position: fixed; bottom: 38px; left: 38px;
+      z-index: 100; font-size: 1.05rem;
+      color: #7F7F7F; font-weight: 600;
     }
     button {
-      background: rgba(0,210,255,0.1);
-      color: #00d2ff;
-      border: 1px solid #00d2ff;
-      padding: 12px 25px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(5px);
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 11px 24px; font-size: 1.1rem;
+      font-weight: 600; cursor: pointer;
+      border-radius: 8px; transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
     }
     button:hover {
-      background: #00d2ff;
-      color: #0f2027;
-      box-shadow: 0px 0px 15px #00d2ff;
+      background: var(--accent); color: #fff;
+      box-shadow: 0 0 18px var(--accent-glow);
       transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
-  <div class="slide-counter" id="slideCounter">Slide 1 of 18</div>
+  <div class="slide-counter" id="slideCounter">Slide 1 of 8</div>
 
-  <!-- 1. TITLE SLIDE -->
+  <!-- ═══════════════════════════════════════
+       SLIDE 1 — TITLE
+  ═══════════════════════════════════════ -->
   <div class="slide active">
-    <h1>Hawk-Eye</h1>
-    <p style="text-align:center;font-size:1.8rem;color:#a8c0ff;"> An AI-Powered Threat Detector for Intelligent Surveillance Cameras</p>
-    <div class="split-layout">
+    <h1>HAWK-EYE V3</h1>
+    <p style="text-align:center;font-size:1.7rem;color:#7F7F7F;margin-top:8px;font-weight:300;">
+      AI-Powered Autonomous Campus Security Monitoring System
+    </p>
+
+    <div class="split">
       <div style="flex:1;">
-        <p><strong>By:</strong></p>
-        <p style="font-size:1.8rem;color:#00d2ff;font-weight:600;margin-top:5px;">Nagendra Kishore Girajala</p>
-        <p style="font-size:1.6rem;color:#00d2ff;font-weight:600;margin-top:5px;">24P31D5809</p>
+        <p style="font-size:1rem;color:#7F7F7F;margin-bottom:6px;font-weight:400;">Developed By</p>
+        <p style="font-size:2rem;color:var(--accent);font-weight:800;margin-bottom:4px;">Nagendra Kishore Girajala</p>
+        <p style="font-size:1.4rem;color:var(--accent);font-weight:600;">5513</p>
       </div>
-      <div style="flex:1;padding-left:20px;border-left:1px solid rgba(255,255,255,0.2);">
-        <p><strong>Under the guidance of:</strong></p>
-        <p style="font-size:1.8rem;color:#00d2ff;font-weight:600;margin-top:5px;margin-bottom:5px;">Mr. Lalu Prasad<span style="font-size: small;">(PhD)</span></p>
-        <p style="margin:0;color:#ccc;">Professor</p>
-        <p style="margin:0;color:#ccc;">Department of Computer Science</p>
+      <div style="flex:1;padding-left:40px;border-left:1px solid rgba(29,54,57,0.15);">
+        <p style="font-size:0.95rem;color:#7F7F7F;margin-bottom:10px;"><strong>Tech Stack</strong></p>
+        <p style="font-size:1rem;color:#1D3639;line-height:2.2;">
+          Google Gemini 2.5 Pro (Multimodal)<br>
+          FastAPI &amp; Uvicorn (ASGI)<br>
+          OpenCV (Motion + Tamper Detection)<br>
+          MongoDB Atlas (Cloud Database)<br>
+          Vanilla JS Web Dashboard
+        </p>
       </div>
     </div>
   </div>
 
-  <!-- 2. ABSTRACT -->
+
+  <!-- ═══════════════════════════════════════
+       SLIDE 2 — ABSTRACT
+  ═══════════════════════════════════════ -->
   <div class="slide">
     <h2>Abstract</h2>
-    <div class="content-box">
-      <p>Traditional video surveillance requires constant human monitoring, which is inefficient and prone to error. While streaming 24/7 video to the cloud for AI analysis provides high accuracy, it incurs massive bandwidth and API costs. Identifying real-time threats using a hybrid machine learning pipeline is a highly promising approach.</p>
-      <p>We propose a model that incorporates <span class="highlight">Edge Computing (OpenCV)</span> for zero-cost motion filtering, paired with <span class="highlight">Cloud AI (Multi Model LLM)</span> for deep reasoning. By calculating pixel differences to detect structural changes locally, the system isolates critical frames.</p>
-      <p>Based on our implementation, this multimodal approach autonomously identifies complex societal threats (fights, fires, accidents), extracts text (OCR) like license plates, and logs structured JSON data to a local Streamlit Dashboard with automated SMTP alerts.</p>
+    <div class="box">
+      <p>Traditional campus surveillance relies entirely on human operators monitoring multiple CCTV feeds simultaneously — a task fundamentally limited by fatigue, divided attention, and the sheer volume of footage. Incidents frequently go undetected until significant harm has occurred.</p>
+
+      <p>This project presents <span class="hl">HAWK-EYE V3</span>, an autonomous AI-powered security monitoring system that replaces passive CCTV with an intelligent, always-on detection pipeline. At the edge, <span class="hl">OpenCV</span> performs lightweight frame differencing to detect motion — acting as a zero-cost gatekeeper that fires the AI only when activity is detected.</p>
+
+      <p>When triggered, a <span class="hl">Google Gemini 2.5 Pro multimodal agent</span> receives a temporal sequence of three frames spaced two seconds apart and reasons through the scene using a ReAct-style loop — querying past incident history, checking time context, reviewing officer feedback, then deciding to <em>log an incident</em>, <em>link to an existing case</em>, or <em>mark the scene clear</em>.</p>
+
+      <p>The system detects <span class="hl">20 threat categories</span> specific to Indian college campuses, persists all incidents to <span class="hl">MongoDB Atlas</span> with full image evidence and agent reasoning chains, dispatches <span class="hl">email alerts</span> to authorities, and provides a real-time web dashboard for security operations — all without requiring continuous human attention.</p>
     </div>
   </div>
 
-  <!-- 3. INTRODUCTION -->
-  <div class="slide">
-    <h2>Introduction</h2>
-    <div class="content-box">
-      <ul>
-        <li><strong>The Core Problem:</strong> Standard object detection models (like basic YOLO) track items (e.g., "person", "car") but lack <span class="highlight">contextual reasoning</span>. They cannot easily distinguish between a normal human interaction and a violent anomaly (like a physical assault).</li>
-        <li><strong>The Cost Barrier:</strong> Processing continuous video streams (30 fps) on cloud APIs is financially unscalable and consumes massive bandwidth for 24/7 security systems.</li>
-        <li><strong>Data Overload:</strong> Security personnel suffer from fatigue when monitoring blank screens. Critical incidents often go unnoticed until after the fact.</li>
-        <li><strong>The Innovation:</strong> The introduction of Multimodal Large Language Models (LLMs) allows us to query an image with natural language. By coupling this with an edge-node motion filter, we create a highly accurate, cost-effective prediction model.</li>
-      </ul>
-    </div>
-  </div>
 
-  <!-- 4. LITERATURE SURVEY Part 1 -->
-  <div class="slide">
-    <h2>Literature Survey (Part I)</h2>
-    <div class="content-box" style="padding:20px 40px;">
-      <table class="custom-table">
-        <thead><tr><th style="width:25%;">Author & Year</th><th style="width:35%;">Research Paper Title</th><th style="width:40%;">Key Contribution / Relevance</th></tr></thead>
-        <tbody>
-          <tr><td>Jyothi et al. (2023)</td><td>Computer Vision Based Accident Detection and Alert System</td><td>Demonstrated the efficiency of automated SMTP email protocols. Inspired our automated alert threading system for authorities.</td></tr>
-          <tr><td>Priyanka H et al. (2025)</td><td>Anomaly Detection in Surveillance Videos</td><td>Used YOLOv8 combined with PaddleOCR for license plates. Inspired our unified Multimodel LLM approach for simultaneous OCR and threat detection.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- 5. LITERATURE SURVEY Part 2 -->
-  <div class="slide">
-    <h2>Literature Survey (Part II)</h2>
-    <div class="content-box" style="padding:20px 40px;">
-      <table class="custom-table">
-        <thead><tr><th style="width:25%;">Author & Year</th><th style="width:35%;">Research Paper Title</th><th style="width:40%;">Key Contribution / Relevance</th></tr></thead>
-        <tbody>
-          <tr><td>Awwad et al. (2024)</td><td>Anomaly Detection on the Edge under Low-Light Conditions</td><td>Reinforced the necessity of processing video frames locally on IoT-Edge devices to reduce latency and bandwidth consumption.</td></tr>
-          <tr><td>Duja et al. (2024)</td><td>Video Surveillance Anomaly Detection: Deep Learning Benchmarks</td><td>Validated the use of motion filtering and temporal/sequential framing to provide AI with context, reducing false positives.</td></tr>
-          <tr><td>Sonawane et al. (2025)</td><td>Detection of Criminal Activities and Anomalies through CCTV's</td><td>Proposed R-CNN + OpenCV pipeline for real-time criminal detection via CCTV, with automated alerts (location + images) to authorities and a web portal for classifying footage as normal/anomalous. Directly validates our hybrid edge-cloud approach, structured alert mechanism, and local dashboard concept.</td></tr>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- 6. EXISTING SYSTEM -->
-  <div class="slide">
-    <h2>Existing System</h2>
-    <div class="content-box">
-      <p>In existing systems, the implementation of Deep Learning for anomaly detection is highly complex and resource-intensive. Current models rely on continuous video streaming to cloud servers or require extremely expensive local GPUs to run heavy CNN architectures 24/7.</p>
-      <p>Furthermore, traditional systems require separate models for different tasks (one model for object detection, one for action recognition, and one for OCR/license plates), increasing latency.</p>
-      <p style="margin-top:20px;" class="highlight">Disadvantages of Existing Systems:</p>
-      <ul>
-        <li>High computational complexity and hardware costs.</li>
-        <li>Massive network bandwidth consumption.</li>
-        <li>High false-positive rates due to lack of contextual understanding.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 7. PROPOSED SYSTEM -->
-  <div class="slide">
-    <h2>Proposed System</h2>
-    <div class="content-box">
-      <p>We propose a unified, hybrid model. At the <span class="highlight">Edge Node</span>, a lightweight Python script uses OpenCV (absdiff, GaussianBlur, findContours) to continuously monitor pixel changes. This acts as a zero-cost gatekeeper.</p>
-      <p>When anomalous motion exceeds a set threshold, the system extracts the critical frames and securely dispatches them to the <span class="highlight">Multi Model LLM</span>. It utilizes its multimodal vision-language capabilities to evaluate the scene.</p>
-      <p>The AI returns a strict JSON payload containing the threat type (Violence, Fire, Intrusion) and any extracted text (OCR). The system immediately logs this to a local SQLite database and dispatches an SMTP email alert.</p>
-    </div>
-  </div>
-
-  <!-- 8. ADVANTAGES -->
-  <div class="slide">
-    <h2>Advantages of Proposed System</h2>
-    <div class="content-box">
-      <ul style="font-size:1.5rem;line-height:2;">
-        <li><span class="highlight">High Accuracy:</span> Leverages state-of-the-art LLM reasoning rather than rigid bounding boxes.</li>
-        <li><span class="highlight">Drastically Reduces Cost:</span> API calls are only made when genuine motion occurs, saving 99% of bandwidth.</li>
-        <li><span class="highlight">All-in-One Multimodality:</span> Performs anomaly detection, contextual description, and OCR simultaneously.</li>
-        <li><span class="highlight">Real-time Dashboarding:</span> Provides operators with an organized, queryable SQLite log via Streamlit.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 9. IMPLEMENTATION -->
-  <div class="slide">
-    <h2>Implementation</h2>
-    <div class="content-box">
-      <ul>
-        <li><strong>Step 1:</strong> Initialize the local SQLite Database (security_log.db) and start the Streamlit UI.</li>
-        <li><strong>Step 2:</strong> Connect to the camera feed (via IP Webcam/Droidcam) using cv2.VideoCapture.</li>
-        <li><strong>Step 3:</strong> Continuously calculate the absolute difference between sequential frames. Apply Gaussian blur and thresholds to isolate moving contours.</li>
-        <li><strong>Step 4:</strong> If contour area > 8000, trigger the AI sequence. Apply a 15-second cooldown to prevent spam.</li>
-        <li><strong>Step 5:</strong> Convert the frame to a PIL Image and dispatch to the Multimodel LLM with a strict JSON formatting prompt.</li>
-        <li><strong>Step 6:</strong> If threat_detected is True, insert the record into the database and spawn a background thread to send the SMTP alert with the image attached.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 10. ARCHITECTURE DIAGRAM — Cloud AI is source of threat actions -->
+  <!-- ═══════════════════════════════════════
+       SLIDE 3 — SYSTEM ARCHITECTURE
+  ═══════════════════════════════════════ -->
   <div class="slide">
     <h2>System Architecture</h2>
-    <div class="content-box" style="display:flex;flex-direction:column;align-items:center;padding:30px 40px;">
+    <div class="box" style="display:flex;flex-direction:column;align-items:center;padding:20px 36px;">
 
-      <!--
-        Correct flow per user:
-        [CCTV Feed] ——→ [Edge Node] ——→ [Cloud AI]
-                                               |
-                                               ↓  (if threat detected)
-                                    [SMTP Server]   [Local Dashboard]
-                                    (Email Alerts)  (Streamlit + SQLite)
-      -->
+      <!-- Row 1: Camera → OpenCV → Motion Gate (centered) -->
+      <div style="display:flex;align-items:center;">
+        <div class="dbox" style="width:148px;">IP Camera<br><span style="font-size:0.78rem;font-weight:300;">DroidCam / HTTP</span></div>
+        <div class="arr-h"></div>
+        <div class="dbox" style="width:168px;">OpenCV Edge<br><span style="font-size:0.78rem;font-weight:300;">Frame Diff · Tamper</span></div>
+        <div class="arr-h"></div>
+        <div class="dbox gold" style="width:148px;">Motion Gate<br><span style="font-size:0.78rem;font-weight:300;">Threshold Filter</span></div>
+      </div>
 
-      <div style="display:grid;
-                  grid-template-columns:220px 50px 220px 50px 220px;
-                  grid-template-rows:auto 60px auto;
-                  align-items:center;
-                  justify-items:center;
-                  gap:0;">
+      <!-- Arrow down to Gemini (centered) -->
+      <div class="arr-v" style="height:26px;"></div>
 
-        <!-- Row 1: CCTV | →  | Edge Node | → | Cloud AI -->
-        <div class="diag-box" style="grid-column:1;grid-row:1;">
-          📹 CCTV Feed<br><span style="font-size:0.85rem;font-weight:300;">(DroidCam / IP)</span>
+      <!-- Gemini ReAct Agent (centered, wide) -->
+      <div class="dbox" style="width:520px;border-color:#E3562B;padding:12px 20px;">
+        Gemini ReAct Agent
+        <span style="font-size:0.76rem;font-weight:300;display:block;margin-top:3px;">Tool Loop · Max 5 steps · 3-frame temporal buffer</span>
+      </div>
+
+      <!-- T-junction: vertical → horizontal → three drops -->
+      <div style="width:2px;height:18px;background:var(--accent);"></div>
+      <!-- Horizontal bar spanning col-1-center to col-3-center (360px centred in 520px = 80px margin each side) -->
+      <div style="width:360px;height:2px;background:var(--accent);"></div>
+      <!-- Three vertical drops (one per branch), aligned to column centres -->
+      <div style="display:flex;width:520px;">
+        <div style="flex:1;display:flex;justify-content:center;"><div style="width:2px;height:16px;background:var(--accent);"></div></div>
+        <div style="flex:1;display:flex;justify-content:center;"><div style="width:2px;height:16px;background:var(--accent);"></div></div>
+        <div style="flex:1;display:flex;justify-content:center;"><div style="width:2px;height:16px;background:var(--accent);"></div></div>
+      </div>
+
+      <!-- Three decision branches (equal width, 520px total) -->
+      <div style="display:flex;width:520px;gap:20px;align-items:flex-start;">
+
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div class="dbox red" style="width:100%;padding:9px 6px;font-size:0.82rem;">log_incident<br><span style="font-weight:300;font-size:0.74rem;">New threat logged</span></div>
+          <div class="arr-v" style="height:14px;"></div>
+          <div class="dbox red" style="width:100%;padding:8px 6px;font-size:0.78rem;">Email Alert</div>
+          <div class="arr-v" style="height:12px;"></div>
+          <div class="dbox green" style="width:100%;padding:8px 6px;font-size:0.78rem;">MongoDB Atlas</div>
         </div>
-        <div class="arr-h" style="grid-column:2;grid-row:1;"></div>
-        <div class="diag-box" style="grid-column:3;grid-row:1;">
-          💻 Edge Node<br><span style="font-size:0.85rem;font-weight:300;">(OpenCV Motion Filter)</span>
-        </div>
-        <div class="arr-h" style="grid-column:4;grid-row:1;"></div>
-        <div class="diag-box" style="grid-column:5;grid-row:1;border-color:#ffbd2e;color:#ffbd2e;">
-          🧠 Cloud AI<br><span style="font-size:0.85rem;font-weight:300;">Multi Model LLM</span>
+
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div class="dbox" style="width:100%;padding:9px 6px;font-size:0.82rem;">link_existing<br><span style="font-weight:300;font-size:0.74rem;">Update prior case</span></div>
+          <div class="arr-v" style="height:14px;"></div>
+          <div class="dbox green" style="width:100%;padding:8px 6px;font-size:0.78rem;">MongoDB Atlas</div>
         </div>
 
-        <!-- Row 2: Down arrow from Cloud AI (column 5) -->
-        <div class="arr-v" style="grid-column:5;grid-row:2;height:50px;align-self:stretch;"></div>
-
-        <!-- Row 3: SMTP ←— Local Dashboard, aligned under Cloud AI -->
-        <div class="diag-box" style="grid-column:3;grid-row:3;border-color:#ff5f56;color:#ff5f56;">
-          📧 SMTP Server<br><span style="font-size:0.85rem;font-weight:300;">(Email Alerts)</span>
-        </div>
-        <div class="arr-h-left" style="grid-column:4;grid-row:3;"></div>
-        <div class="diag-box" style="grid-column:5;grid-row:3;border-color:#27c93f;color:#27c93f;">
-          📊 Local Dashboard<br><span style="font-size:0.85rem;font-weight:300;">(Streamlit + SQLite)</span>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div class="dbox" style="width:100%;padding:9px 6px;font-size:0.82rem;">mark_clear<br><span style="font-weight:300;font-size:0.74rem;">Audit log only</span></div>
+          <div class="arr-v" style="height:14px;"></div>
+          <div class="dbox green" style="width:100%;padding:8px 6px;font-size:0.78rem;">Analyses Log</div>
         </div>
 
       </div>
+
+      <!-- Converge → Web Dashboard -->
+      <div class="arr-v" style="height:22px;"></div>
+      <div class="dbox green" style="width:380px;padding:12px;">Real-Time Web Dashboard</div>
+
     </div>
   </div>
 
-  <!-- 11. BLOCK DIAGRAM — corrected flow: motion → Gemini → Threat Detected? → SMTP+DB -->
+
+  <!-- ═══════════════════════════════════════
+       SLIDE 4 — BLOCK DIAGRAM
+  ═══════════════════════════════════════ -->
   <div class="slide">
     <h2>Block Diagram</h2>
-    <div class="content-box" style="display:flex;align-items:center;justify-content:center;padding:20px 40px;overflow-y:auto;">
+    <div class="box" style="display:flex;align-items:center;justify-content:center;padding:20px 36px;">
       <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
 
-        <!-- START oval -->
-        <div class="diag-box" style="border-radius:50px;padding:10px 40px;width:200px;">START</div>
-        <div class="arr-v" style="height:24px;margin-bottom:10px;"></div>
+        <div class="dbox" style="border-radius:50px;padding:10px 44px;width:180px;">START</div>
+        <div class="arr-v" style="height:22px;margin-bottom:8px;"></div>
 
-        <!-- Capture Frames -->
-        <div class="diag-box" style="width:400px;padding:12px 20px;">Capture Frame 1 & Frame 2</div>
-        <div class="arr-v" style="height:24px;margin-bottom:10px;"></div>
+        <div class="dbox" style="width:420px;padding:11px 18px;">Capture Frame 1 &amp; Frame 2 via OpenCV</div>
+        <div class="arr-v" style="height:22px;margin-bottom:8px;"></div>
 
-        <!-- Calc Diff -->
-        <div class="diag-box" style="width:400px;padding:12px 20px;">Calculate Absolute Difference (OpenCV)</div>
-        <div class="arr-v" style="height:24px;margin-bottom:10px;"></div>
+        <div class="dbox" style="width:420px;padding:11px 18px;">Calculate Absolute Difference + GaussianBlur</div>
+        <div class="arr-v" style="height:22px;margin-bottom:8px;"></div>
 
-        <!-- Decision 1: Is Contour > Threshold? -->
-        <div class="diag-box" style="width:360px;padding:14px 20px;border-color:#ffbd2e;color:#ffbd2e;border-radius:24px;">
-          Is Contour &gt; Threshold?
-        </div>
+        <div class="dbox gold" style="width:380px;padding:13px 18px;border-radius:24px;">Contour Area &gt; Threshold (2500 px&sup2;)?</div>
 
-        <!-- NO/YES split for motion -->
-        <div style="display:flex;align-items:flex-start;width:620px;margin-top:0;">
+        <div style="display:flex;align-items:flex-start;width:680px;margin-top:0;">
 
-          <!-- NO Branch (left) → Loop Back -->
-          <div style="display:flex;flex-direction:column;align-items:center;width:45%;">
-            <div style="width:2px;height:20px;background:#00d2ff;"></div>
+          <!-- NO → Loop Back -->
+          <div style="display:flex;flex-direction:column;align-items:center;width:40%;">
+            <div style="width:2px;height:18px;background:var(--accent);"></div>
             <div style="display:flex;align-items:center;">
-              <div style="width:70px;height:2px;background:#00d2ff;position:relative;">
-                <div style="position:absolute;bottom:-9px;left:0;border-right:10px solid #00d2ff;border-top:10px solid transparent;border-bottom:10px solid transparent;"></div>
+              <div style="width:65px;height:2px;background:var(--accent);position:relative;">
+                <div style="position:absolute;bottom:-9px;left:0;border-right:10px solid var(--accent);border-top:10px solid transparent;border-bottom:10px solid transparent;"></div>
               </div>
-              <span style="font-size:0.85rem;margin:0 6px;color:#ccc;">NO</span>
+              <span style="font-size:0.82rem;margin:0 6px;color:#7F7F7F;">NO</span>
             </div>
-            <div style="width:2px;height:18px;background:#00d2ff;"></div>
-            <div class="diag-box" style="width:160px;padding:10px 14px;">Loop Back</div>
+            <div style="width:2px;height:16px;background:var(--accent);"></div>
+            <div class="dbox" style="width:150px;padding:9px 12px;font-size:0.82rem;">Loop Back</div>
           </div>
 
-          <!-- YES Branch (right) → Gemini → Threat Detected? → actions -->
-          <div style="display:flex;flex-direction:column;align-items:center;width:55%;">
-            <div style="width:2px;height:20px;background:#00d2ff;"></div>
-            <span style="font-size:0.85rem;margin-bottom:4px;color:#ccc;">YES</span>
-            <div class="arr-v" style="height:18px;margin-bottom:10px;"></div>
+          <!-- YES branch -->
+          <div style="display:flex;flex-direction:column;align-items:center;width:60%;">
+            <div style="width:2px;height:18px;background:var(--accent);"></div>
+            <span style="font-size:0.82rem;margin-bottom:4px;color:#7F7F7F;">YES</span>
+            <div class="arr-v" style="height:16px;margin-bottom:8px;"></div>
 
-            <!-- Call Gemini -->
-            <div class="diag-box" style="width:240px;padding:12px 16px;">Call Multi Model</div>
-            <div class="arr-v" style="height:24px;margin-bottom:10px;"></div>
+            <div class="dbox" style="width:300px;padding:10px 14px;font-size:0.88rem;">Gemini ReAct Agent<br><span style="font-weight:300;font-size:0.78rem;">check_time · query_incidents · check_feedback</span></div>
+            <div class="arr-v" style="height:20px;margin-bottom:8px;"></div>
 
-            <!-- Decision 2: Threat Detected? -->
-            <div class="diag-box" style="width:260px;padding:12px 16px;border-color:#ffbd2e;color:#ffbd2e;border-radius:24px;">
-              Threat Detected?
-            </div>
+            <div class="dbox gold" style="width:280px;padding:12px 14px;border-radius:24px;font-size:0.88rem;">Threat Detected?</div>
 
-            <!-- NO2/YES2 split for threat -->
-            <div style="display:flex;align-items:flex-start;width:420px;margin-top:0;">
+            <div style="display:flex;align-items:flex-start;width:460px;margin-top:0;">
 
-              <!-- NO → Discard / Loop -->
-              <div style="display:flex;flex-direction:column;align-items:center;width:45%;">
-                <div style="width:2px;height:20px;background:#00d2ff;"></div>
+              <!-- NO → Audit Log -->
+              <div style="display:flex;flex-direction:column;align-items:center;width:42%;">
+                <div style="width:2px;height:18px;background:var(--accent);"></div>
                 <div style="display:flex;align-items:center;">
-                  <div style="width:50px;height:2px;background:#00d2ff;position:relative;">
-                    <div style="position:absolute;bottom:-9px;left:0;border-right:10px solid #00d2ff;border-top:10px solid transparent;border-bottom:10px solid transparent;"></div>
+                  <div style="width:45px;height:2px;background:var(--accent);position:relative;">
+                    <div style="position:absolute;bottom:-9px;left:0;border-right:10px solid var(--accent);border-top:10px solid transparent;border-bottom:10px solid transparent;"></div>
                   </div>
-                  <span style="font-size:0.8rem;margin:0 5px;color:#ccc;">NO</span>
+                  <span style="font-size:0.78rem;margin:0 4px;color:#7F7F7F;">NO</span>
                 </div>
-                <div style="width:2px;height:16px;background:#00d2ff;"></div>
-                <div class="diag-box" style="width:130px;padding:8px 10px;font-size:0.85rem;">Discard Frame</div>
+                <div style="width:2px;height:14px;background:var(--accent);"></div>
+                <div class="dbox" style="width:150px;padding:8px 10px;font-size:0.78rem;">Log Audit Only</div>
               </div>
 
-              <!-- YES → Log DB + Send Email -->
-              <div style="display:flex;flex-direction:column;align-items:center;width:55%;">
-                <div style="width:2px;height:20px;background:#00d2ff;"></div>
-                <span style="font-size:0.8rem;margin-bottom:4px;color:#ccc;">YES</span>
-                <div class="arr-v" style="height:16px;margin-bottom:8px;"></div>
-                <div class="diag-box" style="width:210px;padding:10px 12px;border-color:#ff5f56;color:#ff5f56;font-size:0.9rem;">📧 Send SMTP Email</div>
-                <div class="arr-v" style="height:16px;margin-bottom:8px;"></div>
-                <div class="diag-box" style="width:210px;padding:10px 12px;border-color:#27c93f;color:#27c93f;font-size:0.9rem;">📊 Log to DB (SQLite)</div>
+              <!-- YES → Save + Email -->
+              <div style="display:flex;flex-direction:column;align-items:center;width:58%;">
+                <div style="width:2px;height:18px;background:var(--accent);"></div>
+                <span style="font-size:0.78rem;margin-bottom:4px;color:#7F7F7F;">YES</span>
+                <div class="arr-v" style="height:14px;margin-bottom:6px;"></div>
+                <div class="dbox red" style="width:240px;padding:9px 12px;font-size:0.82rem;">Dispatch SMTP Email Alert</div>
+                <div class="arr-v" style="height:14px;margin-bottom:6px;"></div>
+                <div class="dbox green" style="width:240px;padding:9px 12px;font-size:0.82rem;">Save to MongoDB Atlas</div>
+                <div class="arr-v" style="height:14px;margin-bottom:6px;"></div>
+                <div class="dbox" style="width:240px;padding:9px 12px;font-size:0.82rem;">Update Web Dashboard</div>
               </div>
 
             </div>
@@ -544,174 +451,271 @@
     </div>
   </div>
 
-  <!-- 12. MODULE 1 -->
-  <div class="slide">
-    <h2>Module 1: Edge Processor</h2>
-    <div class="content-box">
-      <ul>
-        <li><strong>Video Ingestion:</strong> Connects to IP cameras via cv2.VideoCapture.</li>
-        <li><strong>Grayscale Conversion:</strong> Simplifies the image matrices to reduce compute load.</li>
-        <li><strong>Gaussian Blurring:</strong> Smooths out high-frequency noise (like wind or camera jitter) that causes false positives.</li>
-        <li><strong>Thresholding & Dilation:</strong> Converts the difference image to stark black and white, making human/vehicle shapes distinct.</li>
-        <li><strong>Contour Area Filtering:</strong> Ignores small movements (leaves, bugs) and only flags significant motion (area > 8000).</li>
-        <li><strong>Cooldown Logic:</strong> Uses time.time() to enforce a 15-second delay between triggers to prevent API throttling.</li>
-      </ul>
-    </div>
-  </div>
 
-  <!-- 13. MODULE 2 -->
+  <!-- ═══════════════════════════════════════
+       SLIDE 5 — TERMINAL OUTPUT
+  ═══════════════════════════════════════ -->
   <div class="slide">
-    <h2>Module 2: Cloud AI & Dashboard</h2>
-    <div class="content-box">
-      <ul>
-        <li><strong>Payload Generation:</strong> Converts the triggered OpenCV frame into a PIL Image format compatible with Google GenAI.</li>
-        <li><strong>Prompt Engineering:</strong> Forces the LLM to output a strict JSON string mapping to specific database columns (threat_detected, threat_type, description, extracted_text).</li>
-        <li><strong>SQLite Integration:</strong> Opens a local database connection and inserts the parsed JSON data alongside a real-time timestamp.</li>
-        <li><strong>Multithreaded SMTP:</strong> Triggers the email.message library in a separate threading.Thread so the camera feed doesn't freeze while sending the attachment.</li>
-        <li><strong>Streamlit UI:</strong> A web interface that reads the SQLite incidents table and uses st.dataframe to display a live, structured log for security personnel.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 14. HARDWARE & SOFTWARE -->
-  <div class="slide">
-    <h2>Hardware & Software Requirements</h2>
-    <div class="content-box" style="padding:20px 40px;display:flex;flex-wrap:wrap;gap:40px;justify-content:center;">
-      <div style="flex:1;min-width:300px;">
-        <table class="custom-table">
-          <thead><tr><th colspan="2" style="text-align:center;">Hardware Requirements</th></tr></thead>
-          <tbody>
-            <tr><td><strong>OS</strong></td><td>Windows 10 / Linux</td></tr>
-            <tr><td><strong>RAM</strong></td><td>8 GB (Minimum)</td></tr>
-            <tr><td><strong>Storage</strong></td><td>256 GB SSD</td></tr>
-            <tr><td><strong>Processor</strong></td><td>Intel i3 / Ryzen 3 or higher</td></tr>
-            <tr><td><strong>Camera</strong></td><td>DroidCam App / Web Camera</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="flex:1;min-width:300px;">
-        <table class="custom-table">
-          <thead><tr><th colspan="2" style="text-align:center;">Software Requirements</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Language</strong></td><td>Python 3.9+</td></tr>
-            <tr><td><strong>IDE</strong></td><td>VS Code / PyCharm</td></tr>
-            <tr><td><strong>Libraries</strong></td><td>OpenCV, Pandas, SQLite3</td></tr>
-            <tr><td><strong>Framework</strong></td><td>Streamlit</td></tr>
-            <tr><td><strong>Cloud</strong></td><td>Multi Model LLM</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- 15. OUTPUT 1 -->
-  <div class="slide">
-    <h2>OUTPUT: Terminal & API Execution</h2>
-    <div class="content-box" style="padding:20px 40px;">
-      <div class="browser-mockup">
-        <div class="browser-header">
-          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-          <div class="browser-url">Terminal / Command Prompt</div>
+    <h2>Output: Terminal Execution</h2>
+    <div class="box" style="padding:22px 36px;">
+      <div class="browser">
+        <div class="bhead">
+          <div class="bdot" style="background:#ff5f57;"></div>
+          <div class="bdot" style="background:#febc2e;"></div>
+          <div class="bdot" style="background:#28c840;"></div>
+          <div class="burl">PowerShell — uvicorn app:app --host 0.0.0.0 --port 8000 --reload</div>
         </div>
-        <div class="browser-body" style="font-family:'Courier New',Courier,monospace;color:#a8c0ff;line-height:1.6;">
-          > python app.py<br>
-          <span style="color:#fff;">Edge Node Active. Monitoring locally for anomalies...</span><br>
-          [Motion Detected] Calculating contour area: 12450<br>
-          [API Call] Dispatching frame to LLM<br><br>
-          <span style="color:#27c93f;">AI JSON Output: {<br>
-          &nbsp;&nbsp;"threat_detected": true,<br>
-          &nbsp;&nbsp;"threat_type": "Vandalism",<br>
-          &nbsp;&nbsp;"description": "A person is spray painting the wall.",<br>
-          &nbsp;&nbsp;"extracted_text": "No text visible"<br>
-          }</span><br><br>
-          <span style="color:#ffbd2e;">⚠️ THREAT CONFIRMED! Saving to local SQLite database...</span><br>
-          [Thread] Dispatching email for: Vandalism...<br>
-          [Thread] ✅ Email successfully sent.
+        <div class="bbody term">
+          <span class="t-dim">$ </span><span class="t-white">uvicorn app:app --host 0.0.0.0 --port 8000 --reload</span><br>
+          INFO: &nbsp;&nbsp;&nbsp;&nbsp; Uvicorn running on http://0.0.0.0:8000<br>
+          INFO: &nbsp;&nbsp;&nbsp;&nbsp; Started reloader process [12847]<br>
+          <span class="t-green">[HAWK-EYE] [OK] Gemini API OK — model=gemini-2.5-pro, response='ONLINE'</span><br><br>
+
+          <span class="t-dim"># === Detection Loop Started === </span><br>
+          <span class="t-white">[Monitor] Watching for motion → agent (gemini-2.5-pro, 1s cooldown)</span><br><br>
+
+          <span class="t-gold">[Motion] Frame diff detected — contour area: 18,452 px² @ 21:14:29</span><br>
+          <span class="t-white">[Agent] &nbsp;Triggering Gemini on 3-frame sequence (frames spaced 2s apart)...</span><br>
+          &nbsp;&nbsp;[Tool] check_time_context() → <span class="t-green">"After-hours 21:14 — HIGH suspicion warranted"</span><br>
+          &nbsp;&nbsp;[Tool] query_at_location("Block A") → <span class="t-green">"2 prior incidents in last 6h"</span><br>
+          &nbsp;&nbsp;[Tool] check_feedback("Violence") → <span class="t-green">"No false positive history"</span><br>
+          &nbsp;&nbsp;[Decision] <span class="t-orange">log_incident(threat_type="Violence", severity="critical",</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-orange">escalation="notify_security", confidence=0.91)</span><br><br>
+
+          <span class="t-green">[DB] &nbsp;&nbsp;&nbsp;Incident saved → ObjectId("6641f3a2b8d4c1e70a32dd81")</span><br>
+          <span class="t-green">[Email] Sent: Violence → kishore.girajala@gmail.com</span><br>
+          <span class="t-orange">[Status] [WARN] Violence (critical) — escalation: notify_security | 2847ms | 3 tool calls</span><br><br>
+
+          <span class="t-dim"># === Heartbeat === </span><br>
+          <span class="t-white">[Heartbeat #12] Checking static scene at 21:44:30...</span><br>
+          &nbsp;&nbsp;[Tool] check_time_context() → <span class="t-green">"After-hours"</span><br>
+          &nbsp;&nbsp;[Decision] <span class="t-green">mark_clear(reasoning="Empty corridor, no persons visible")</span><br>
+          <span class="t-green">[Status] [OK] Clear — Empty corridor, no persons visible | 1203ms | 1 tool call</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 16. OUTPUT 2 -->
+
+  <!-- ═══════════════════════════════════════
+       SLIDE 6 — EMAIL ALERT SCREENSHOT
+  ═══════════════════════════════════════ -->
   <div class="slide">
-    <h2>OUTPUT: Streamlit Dashboard</h2>
-    <div class="content-box" style="padding:20px 40px;">
-      <div class="browser-mockup" style="background:#0e1117;">
-        <div class="browser-header">
-          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-          <div class="browser-url">localhost:8501 - Local Security Dashboard</div>
+    <h2>Output: Automated Email Alert</h2>
+    <div class="box" style="padding:22px 36px;">
+      <div class="browser">
+        <div class="bhead">
+          <div class="bdot" style="background:#ff5f57;"></div>
+          <div class="bdot" style="background:#febc2e;"></div>
+          <div class="bdot" style="background:#28c840;"></div>
+          <div class="burl">https://mail.google.com — Inbox (1 new)</div>
         </div>
-        <div class="browser-body">
-          <h3 style="color:white;margin-top:0;">🚨 Local Security Incident Dashboard</h3>
-          <div style="display:flex;gap:20px;margin-bottom:20px;">
-            <div style="background:#262730;padding:15px;border-radius:8px;flex:1;">Total Incidents: <strong style="font-size:1.5rem;color:#00d2ff;">14</strong></div>
-            <div style="background:#262730;padding:15px;border-radius:8px;flex:1;">Unresolved Alerts: <strong style="font-size:1.5rem;color:#ff5f56;">3</strong></div>
+        <div class="bbody" style="background:white;padding:0;">
+
+          <!-- Gmail top bar mock -->
+          <div style="background:#f1f3f4;padding:8px 18px;display:flex;align-items:center;gap:16px;border-bottom:1px solid #ddd;">
+            <span style="font-size:1.3rem;font-weight:800;color:#E3562B;">M</span>
+            <span style="font-size:0.9rem;color:#444;font-weight:600;">Gmail</span>
+            <span style="margin-left:auto;font-size:0.8rem;color:#888;">kishore.girajala@gmail.com</span>
           </div>
-          <table style="width:100%;border-collapse:collapse;font-size:0.95rem;">
-            <tr style="background:#262730;color:#aaa;text-align:left;">
-              <th style="padding:12px;">Date & Time</th><th style="padding:12px;">Threat Category</th><th style="padding:12px;">AI Analysis</th><th style="padding:12px;">Status</th>
-            </tr>
-            <tr style="border-bottom:1px solid #333;">
-              <td style="padding:12px;">2024-05-12 14:32:01</td><td style="padding:12px;color:#ff5f56;font-weight:600;">Vandalism</td><td style="padding:12px;">Person spray painting wall</td><td style="padding:12px;">Unresolved 🔴</td>
-            </tr>
-            <tr style="border-bottom:1px solid #333;">
-              <td style="padding:12px;">2024-05-12 11:15:44</td><td style="padding:12px;color:#ffbd2e;font-weight:600;">Suspicious Vehicle</td><td style="padding:12px;">Car parked in loading zone</td><td style="padding:12px;">Resolved 🟢</td>
-            </tr>
-          </table>
+
+          <!-- Email list row -->
+          <div style="background:#fff;padding:10px 18px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:14px;cursor:pointer;background:rgba(227,86,43,0.04);">
+            <div style="width:36px;height:36px;border-radius:50%;background:#E3562B;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1rem;">H</div>
+            <div style="flex:1;">
+              <div style="font-weight:700;color:#1a1a1a;font-size:0.92rem;">HAWK-EYE Security System</div>
+              <div style="font-size:0.82rem;color:#E3562B;font-weight:600;">[CRITICAL] Violence Detected — HAWK-EYE Alert</div>
+              <div style="font-size:0.78rem;color:#888;">HAWK-EYE V3 Security Alert — Immediate Action Required. Threat Type: Violence · Severity: CRITICAL...</div>
+            </div>
+            <div style="font-size:0.78rem;color:#888;">21:14</div>
+          </div>
+
+          <!-- Email open view -->
+          <div class="gmail-header">
+            <div class="gmail-from">mendoza99858@gmail.com &rarr; kishore.girajala@gmail.com</div>
+            <div class="gmail-subj">[CRITICAL] Violence Detected — HAWK-EYE Alert</div>
+            <div class="gmail-when">Monday, 12 May 2026 &middot; 21:14:35 IST &middot; Attachment: incident.jpg</div>
+          </div>
+          <div class="gmail-body">
+            <div class="gmail-banner">HAWK-EYE V3 Security System — Immediate Action Required</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 30px;">
+              <div>
+                <div class="gmail-row"><span class="gmail-lbl">Threat Type</span><span class="gmail-val">Violence</span></div>
+                <div class="gmail-row"><span class="gmail-lbl">Severity</span><span class="gmail-val" style="color:#E3562B;font-weight:700;">CRITICAL</span></div>
+                <div class="gmail-row"><span class="gmail-lbl">Escalation</span><span class="gmail-val" style="color:#E3562B;font-weight:700;">notify_security</span></div>
+                <div class="gmail-row"><span class="gmail-lbl">Confidence</span><span class="gmail-val">91%</span></div>
+              </div>
+              <div>
+                <div class="gmail-row"><span class="gmail-lbl">Location</span><span class="gmail-val">Block A · Main Gate Camera</span></div>
+                <div class="gmail-row"><span class="gmail-lbl">People</span><span class="gmail-val">2 persons</span></div>
+                <div class="gmail-row"><span class="gmail-lbl">Timestamp</span><span class="gmail-val">2026-05-12 21:14:32</span></div>
+                <div class="gmail-row"><span class="gmail-lbl">Agent Steps</span><span class="gmail-val">3 tool calls · 2847ms</span></div>
+              </div>
+            </div>
+            <div class="gmail-row" style="margin-top:6px;"><span class="gmail-lbl">Description</span><span class="gmail-val">Physical altercation between 2 persons near Block A entrance. Frame 2 shows raised fists, Frame 3 confirms physical contact. Repeat location — 2 prior incidents this evening.</span></div>
+            <div class="gmail-attach">[ATTACHMENT] &nbsp;<strong>incident.jpg</strong> &nbsp;— Evidence frame captured at time of detection (attached)</div>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 17. CONCLUSION -->
+
+  <!-- ═══════════════════════════════════════
+       SLIDE 7 — INCIDENT LOG DASHBOARD
+  ═══════════════════════════════════════ -->
   <div class="slide">
-    <h2>Conclusion</h2>
-    <div class="content-box">
-      <p>This project successfully demonstrates that high-end enterprise security monitoring does not require massive cloud computing budgets or continuous data streaming.</p>
-      <p>By blending the lightweight, zero-cost processing speed of local <span class="highlight">OpenCV on the Edge</span> with the deep contextual understanding of <span class="highlight">Multimodal LLMs</span>, the system can autonomously identify complex societal threats with near-zero false positives.</p>
-      <p>The integration of native OCR, structured JSON output, local SQLite database logging, and automated SMTP threading creates a highly secure, privacy-first, and fully functional real-time anomaly detection pipeline.</p>
+    <h2>Output: Incident Log &amp; Dashboard</h2>
+    <div class="box" style="padding:22px 36px;">
+      <div class="browser">
+        <div class="bhead">
+          <div class="bdot" style="background:#ff5f57;"></div>
+          <div class="bdot" style="background:#febc2e;"></div>
+          <div class="bdot" style="background:#28c840;"></div>
+          <div class="burl">HAWK-EYE V3 Security Center</div>
+        </div>
+        <div class="bbody dash-bg" style="color:white;">
+
+          <!-- Top bar -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 4px;margin-bottom:12px;">
+            <span style="font-size:1.1rem;font-weight:800;color:#E3562B;letter-spacing:1px;">HAWK-EYE V3</span>
+            <span style="font-size:0.75rem;color:#28c840;font-weight:600;">● MONITORING ACTIVE &nbsp;&middot;&nbsp; gemini-2.5-pro &nbsp;&middot;&nbsp; Main Gate Camera</span>
+            <span style="font-size:0.78rem;color:#888;">21:48:12</span>
+          </div>
+
+          <!-- Metrics row -->
+          <div class="dash-row">
+            <div class="dash-metric"><div class="dash-val">24</div><div class="dash-lbl">Total Incidents</div></div>
+            <div class="dash-metric"><div class="dash-val" style="color:#E3562B;">3</div><div class="dash-lbl">Critical</div></div>
+            <div class="dash-metric"><div class="dash-val" style="color:#ffbd2e;">11</div><div class="dash-lbl">Unresolved</div></div>
+            <div class="dash-metric"><div class="dash-val" style="color:#28c840;">16</div><div class="dash-lbl">Resolved</div></div>
+            <div class="dash-metric"><div class="dash-val">7</div><div class="dash-lbl">Last 24h</div></div>
+            <div class="dash-metric"><div class="dash-val" style="color:#64c8ff;">1,284</div><div class="dash-lbl">Scans Run</div></div>
+          </div>
+
+          <!-- Incident table -->
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Threat Type</th>
+                <th>Severity</th>
+                <th>Location</th>
+                <th>Escalation</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2026-05-12 21:14:32</td>
+                <td><strong>Violence</strong></td>
+                <td><span class="dt-pill dt-crit">Critical</span></td>
+                <td>Block A</td>
+                <td>notify_security</td>
+                <td><span class="dt-pill dt-unr">Unresolved</span></td>
+              </tr>
+              <tr>
+                <td>2026-05-12 20:47:08</td>
+                <td><strong>Intrusion</strong></td>
+                <td><span class="dt-pill dt-high">High</span></td>
+                <td>Main Gate</td>
+                <td>notify_warden</td>
+                <td><span class="dt-pill dt-res">Resolved</span></td>
+              </tr>
+              <tr>
+                <td>2026-05-12 19:33:45</td>
+                <td><strong>Substance Abuse</strong></td>
+                <td><span class="dt-pill dt-high">High</span></td>
+                <td>Library Exit</td>
+                <td>notify_security</td>
+                <td><span class="dt-pill dt-res">Resolved</span></td>
+              </tr>
+              <tr>
+                <td>2026-05-12 18:05:21</td>
+                <td><strong>Loitering</strong></td>
+                <td><span class="dt-pill dt-med">Medium</span></td>
+                <td>Parking Lot</td>
+                <td>log</td>
+                <td><span class="dt-pill dt-fp">FalsePositive</span></td>
+              </tr>
+              <tr>
+                <td>2026-05-12 16:22:14</td>
+                <td><strong>Theft</strong></td>
+                <td><span class="dt-pill dt-crit">Critical</span></td>
+                <td>Canteen</td>
+                <td>notify_police</td>
+                <td><span class="dt-pill dt-res">Resolved</span></td>
+              </tr>
+              <tr>
+                <td>2026-05-12 14:10:55</td>
+                <td><strong>Ragging</strong></td>
+                <td><span class="dt-pill dt-high">High</span></td>
+                <td>Block B Corridor</td>
+                <td>notify_warden</td>
+                <td><span class="dt-pill dt-unr">Unresolved</span></td>
+              </tr>
+              <tr>
+                <td>2026-05-12 11:45:30</td>
+                <td><strong>Camera Tamper</strong></td>
+                <td><span class="dt-pill dt-high">High</span></td>
+                <td>Gate 2 Camera</td>
+                <td>notify_security</td>
+                <td><span class="dt-pill dt-res">Resolved</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="display:flex;align-items:center;padding-top:10px;font-size:0.78rem;color:#666;gap:20px;">
+            <span>Showing 7 of 24 incidents</span>
+            <span>Avg confidence: 87%</span>
+            <span>Avg resolution: 14.2 min</span>
+            <span style="margin-left:auto;color:#E3562B;cursor:pointer;font-weight:600;">Export CSV</span>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 18. THANK YOU -->
+
+  <!-- ═══════════════════════════════════════
+       SLIDE 8 — THANK YOU
+  ═══════════════════════════════════════ -->
   <div class="slide">
-    <h1 style="font-size:6rem;text-shadow:0px 8px 25px rgba(0,210,255,0.6);">THANK YOU</h1>
-    <p style="text-align:center;color:#00d2ff;font-size:1.8rem;letter-spacing:2px;">Any Questions?</p>
+    <h1 style="font-size:5.5rem;text-shadow:0 8px 30px var(--accent-glow);">THANK YOU</h1>
+    <p style="text-align:center;color:var(--accent);font-size:1.7rem;letter-spacing:2px;margin-top:10px;">Any Questions?</p>
+    <div style="margin-top:44px;background:rgba(255,255,255,0.70);border:1px solid var(--accent-border);border-radius:16px;padding:28px 52px;text-align:center;">
+      <p style="font-size:1.5rem;font-weight:700;color:var(--accent);margin-bottom:6px;">Nagendra Kishore Girajala</p>
+      <p style="font-size:1rem;color:#7F7F7F;">5513</p>
+      <p style="font-size:0.95rem;color:#7F7F7F;margin-top:12px;font-style:italic;">
+        "HAWK-EYE V3 — Making Campus Safer, Smarter, and Always Watching"
+      </p>
+    </div>
   </div>
 
+
+  <!-- Controls -->
   <div class="controls">
     <button onclick="prevSlide()">← Previous</button>
     <button onclick="nextSlide()">Next →</button>
   </div>
 
   <script>
-    let currentSlide = 0;
+    let cur = 0;
     const slides = document.querySelectorAll('.slide');
     const counter = document.getElementById('slideCounter');
 
-    function updateCounter() {
-      counter.innerText = `Slide ${currentSlide + 1} of ${slides.length}`;
+    function show(i) {
+      slides.forEach((s, j) => s.classList.toggle('active', i === j));
+      counter.innerText = `Slide ${i + 1} of ${slides.length}`;
+      cur = i;
     }
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        if (i === index) slide.classList.add('active');
-      });
-      updateCounter();
-    }
+    function nextSlide() { if (cur < slides.length - 1) show(cur + 1); }
+    function prevSlide() { if (cur > 0) show(cur - 1); }
 
-    function nextSlide() {
-      if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); }
-    }
-
-    function prevSlide() {
-      if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); }
-    }
-
-    updateCounter();
-
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
       else if (e.key === 'ArrowLeft') prevSlide();
     });
